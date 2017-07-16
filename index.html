@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Travel Tips: Tokyo!</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container"> 
+    <aside id="side-nav" class="options-box">
+      <div> <span id="cross" onclick="closeNav()">&#10799;</span></div>
+      <h1>My Favorite Attractions in Tokyo!</h1> 
+      <hr>
+      <section>
+        <span>What are you looking for? </span>
+        <select data-bind="options: optionValues, value: selectedOptionValue"></select>
+      </section>
+      <hr>
+      <section id="all-attracttions">
+        <ul id="list-of-attracttions" data-bind="foreach : attractionList">
+          <li class="list-item" data-bind="click: $parent.userClickItem, text: $data.title"></li>
+        </ul>
+      </section>
+    </aside>
+    <main id="map-canvas">
+      <header><span id="hamburger" onclick="openNav()">&#9776; Show Listing</span></header>
+      <div id="map"></div>
+    </main>
+  </div>
+
+  <!--include all the javascripts needed-->
+  <script src="js/libs/jquery.min.js"></script>
+  <script src="js/libs/knockout-3.4.2.js"></script>
+  <script src="js/app.js"></script> 
+  
+  <!--use Google Map API (async)-->
+  <script async defer onerror="errorLoadingMap()"
+      src="https://maps.googleapis.com/maps/api/js?libraries=geometry,drawing&key=AIzaSyCdiFxVS_WVLaYdnPtGhBWIeoeHLOOyT6s&v=3&callback=initMap">
+  </script>
+</body>
+</html>

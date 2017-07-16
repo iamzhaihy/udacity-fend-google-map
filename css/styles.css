@@ -1,0 +1,87 @@
+html,
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+span {
+    padding-left: 10px;
+}
+
+#hamburger {
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+#cross {
+    font-size: 36px;
+    cursor: pointer;
+}
+
+header {
+    background-color: black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.container {
+    height: 100%;
+    position: relative;
+    background-color:#f5f5f5;
+}
+
+input {
+    font-size: 12px;
+}
+
+h1 {
+    font-family: Georgia, 'Times New Roman', Times, serif ;
+    color: #525454;
+    font-size: 20px;
+    margin: 0 0 10px 0;
+    text-align: center;
+}
+
+#map-canvas {
+    bottom:0px;
+    height: 100%;
+    left: 340px;
+    right: 0px;        
+    position: absolute;
+
+}
+
+#map {
+    height: 100%;
+}
+
+.options-box {
+    width: 340px;
+    z-index: 1;
+    height: 100%;  
+    position: fixed;
+    transition: 0.3s; 
+    line-height: 35px;
+    overflow-x: hidden;
+    background-color:#f5f5f5; 
+}
+
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .options-box {
+        font-size: 10pt;
+        width: 0;
+    }
+
+    #map-canvas {
+        left: 0;
+    }
+
+    #hamburger {
+        font-size: 18pt;
+    }
+}
