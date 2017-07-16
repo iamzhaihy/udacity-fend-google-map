@@ -100,7 +100,7 @@ function displayInfoWindow(marker, infowindow) {
         var contentString = '<h3>' + marker.title + '</h3>'+ '<hr>' + '<p>Link you may find useful</p>'+'<div id="wiki-link"><ul>';
       
         // load Wikipedia Articles
-        var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + marker.getTitle() + '&format=json&callback=wikiCallback';
+        var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + marker.getTitle() + '&format=json&callback=wikiCallback';
 
         $.ajax({
             url : wikiUrl,
