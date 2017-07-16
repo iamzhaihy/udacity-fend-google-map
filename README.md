@@ -2,7 +2,7 @@
 
 ### What is this?
 
-This a project for Udacity Front-end Nanodegree. It is a neighborhood map. I listed my favorite places in Tokyo, Japan. 
+This a project for Udacity Front-end Nanodegree. It is a neighborhood map. I listed my favorite places in Tokyo, Japan. You can try this live demo [Neighborhood Map](https://iamzhaihy.github.io/udacity-fend-neighborhood-map/) 
 
 
 
