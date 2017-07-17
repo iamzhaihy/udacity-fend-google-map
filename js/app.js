@@ -170,13 +170,13 @@ var ViewModel = function() {
 
         // refreshList() returns an array of all qualified attractions
         var qualified = refreshList(self.selectedOptionValue());
-        
+
         // attractionList now contains qualified places only
         // entries on the left of the page will be updated automatically
         self.attractionList(qualified);
 
         // show filtered markers
-        showFilteredListing(self.attractionList());
+        showFilteredListing(self.selectedOptionValue(), self.attractionList());
     });
 
     this.userClickItem = function(clickedItem) {
@@ -204,9 +204,9 @@ var errorLoadingMap = function() {
 var generateFullList = function() {
     var list = [];
     for(var i = 0; i < fullAttractionList.length; i++) {
-        var attraction = new Attraction(fullAttractionList[i]);
-        attraction.qualified = true;
-        list.push(attraction);
+        //var attraction = new Attraction(fullAttractionList[i]);
+        //attraction.qualified = true; 
+        list.push(fullAttractionList[i]);
     }
     return list;
 }; // generateFullList()
@@ -236,23 +236,32 @@ function refreshList(keyword) {
 
 
 // show qualified places and hide others
-function showFilteredListing(qualifiedList) {
-    var keyword = [];
+function showFilteredListing(keyword, qualifiedList) {
+    var titles = [];
 
     // grab the titles from qualified list
     for (var i = 0; i < qualifiedList.length; i++) {
-        keyword.push(qualifiedList[i].title);
+        titles.push(qualifiedList[i].title);
     }
 
-    for (var j = 0; j < markers.length; j++) {
-        // if the title of the marker matches keyword
-        if (keyword.includes(markers[j].title)) {
-            markers[j].setVisible(true);
-            markers[j].setAnimation(google.maps.Animation.DROP);
-        } else {
-            markers[j].setVisible(false);
-        }
-    } // for loop
+    if (keyword == "all") {
+        // set all markers visible
+        for (var k = 0; k < markers.length; k++) {
+            markers[k].setVisible(true);
+            markers[k].setAnimation(google.maps.Animation.DROP);
+        } 
+    } else {
+        // if a keyword is specified, show only filtered
+        for (var j = 0; j < markers.length; j++) {
+            // if the title of the marker matches keyword
+            if (titles.includes(markers[j].title)) {
+                markers[j].setVisible(true);
+                markers[j].setAnimation(google.maps.Animation.DROP);
+            } else {
+                markers[j].setVisible(false);
+            }
+        } // for loop
+    }
 } // showFilteredListing
 
 
