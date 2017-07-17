@@ -45,11 +45,11 @@ h1 {
     text-align: center;
 }
 
-#map-canvas {
-    bottom:0px;
+#map-canvas { 
     height: 100%;
-    left: 340px;
-    right: 0px;        
+    left: 0;
+    right: 0;
+    bottom: 0;
     position: absolute;
 
 }
@@ -59,7 +59,7 @@ h1 {
 }
 
 .options-box {
-    width: 340px;
+    width: 0;
     z-index: 1;
     height: 100%;  
     position: fixed;
@@ -74,13 +74,8 @@ h1 {
     /* For mobile phones: */
     .options-box {
         font-size: 10pt;
-        width: 0;
     }
-
-    #map-canvas {
-        left: 0;
-    }
-
+    
     #hamburger {
         font-size: 18pt;
     }
