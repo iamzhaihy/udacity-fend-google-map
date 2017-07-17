@@ -247,10 +247,9 @@ function showFilteredListing(keyword, qualifiedList) {
     if (keyword == "all") {
         // set all markers visible
         for (var k = 0; k < markers.length; k++) {
-            if (markers[k].getVisible() == false){                
+            if (markers[k].getVisible() == false){
                 markers[k].setVisible(true);
             }
-            markers[k].setAnimation(google.maps.Animation.DROP);
         } 
     } else {
         // if a keyword is specified, show only filtered
