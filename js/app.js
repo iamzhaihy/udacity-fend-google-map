@@ -6,7 +6,7 @@ var fullAttractionList = [
     {title: "Tokyo Skytree", location: {lat: 35.710063, lng: 139.8107}, type: ["observation-tower", "landmark"], qualified: false},
     {title: "Tokyo Tower", location: {lat: 35.65857, lng: 139.745484}, type: ["observation-tower", "landmark", "dating"], qualified: false},
     {title: "Pokemon Center", location: {lat: 35.728798, lng: 139.719247}, type: ["shopping", "fun", "souvenir"], qualified: false},
-    {title: "Ueno Zoo", location: {lat: 35.7326398, lng: 139.7833335}, type: ["zoo", "park", "fun"], qualified: false},
+    {title: "Ueno Zoo", location: {lat: 35.724064, lng: 139.76674}, type: ["zoo", "park", "fun"], qualified: false},
     {title: "Akihabara", location: {lat: 35.6984949, lng: 139.7719771}, type: ["shopping", "fun", "souvenir"], qualified: false},
     {title: "Shinjuku Gyoen National Garden", location: {lat: 35.6851763, lng: 139.707863}, type: ["park", "garden"], qualified: false},
     {title: "Sensō-ji", location: {lat: 35.7147651, lng: 139.7944666}, type: ["temple"], qualified: false}, 
