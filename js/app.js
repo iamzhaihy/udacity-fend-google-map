@@ -7,12 +7,12 @@ var fullAttractionList = [
     {title: "Tokyo Tower", location: {lat: 35.65857, lng: 139.745484}, type: ["observation-tower", "landmark", "dating"]},
     {title: "Pokemon Center", location: {lat: 35.728798, lng: 139.719247}, type: ["shopping", "fun", "souvenir"]},
     {title: "Ueno Zoo", location: {lat: 35.716454, lng: 139.771318}, type: ["zoo", "park", "fun"]},
-    {title: "Akihabara", location: {lat: 35.6984949, lng: 139.7719771}, type: ["shopping", "fun", "souvenir"]},
+    {title: "Akihabara", location: {lat: 35.698353, lng: 139.773114}, type: ["shopping", "fun", "souvenir"]},
     {title: "Shinjuku Gyoen National Garden", location: {lat: 35.6851763, lng: 139.707863}, type: ["park", "garden"]},
-    {title: "Sensō-ji", location: {lat: 35.7147651, lng: 139.7944666}, type: ["temple"]}, 
-    {title: "Meiji Jingu", location: {lat: 35.675512, lng: 139.7007245}, type: ["shrine", "garden"]},
-    {title: "Tokyo Disneyland", location: {lat: 35.6328964, lng: 139.8782056}, type: ["fun", "park", "souvenir"]},
-    {title: "Ghibli Museum", location: {lat: 35.696238, lng: 139.568243}, type: ["fun", "museum", "souvenir"]}
+    {title: "Sensō-ji", location: {lat: 35.714765, lng: 139.796655}, type: ["temple"]}, 
+    {title: "Meiji Jingu", location: {lat: 35.676398, lng: 139.699326}, type: ["shrine", "garden"]},
+    {title: "Tokyo Disneyland", location: {lat: 35.632896, lng: 139.880394}, type: ["fun", "park", "souvenir"]},
+    {title: "Ghibli Museum", location: {lat: 35.696238, lng: 139.570432}, type: ["fun", "museum", "souvenir"]}
     //{title:, location: {lat:, lng:}, type:}
 ];
 
