@@ -10,10 +10,11 @@ This a project for Udacity Front-end Nanodegree. It is a neighborhood map. I lis
 
 I am still learning, so the tools I used are basic (also effective) ones:
 - Javascript
-- JQuery (DOM Manipulation & AJAX)
-- KnockoutJS (MVVM Framework)
-- Google Maps API
+- JQuery
+- KnockoutJS
 - Wikipedia API
+- Google Maps API
+
 
 
 
@@ -35,6 +36,7 @@ All you need is to do is:
 I learned a lot from following places:
 - [JQuery Documentation](http://api.jquery.com/)
 - [Knockout Documentation](http://knockoutjs.com/documentation/introduction.html)
+- [Wikipedia API Documentation](https://www.mediawiki.org/wiki/API:Main_page)
 - [Google Map API Documentation](https://developers.google.com/maps/documentation/geocoding/start)
 - Udacity Ajax Minicourse
 - Udacity Google Map API Course
