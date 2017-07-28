@@ -1,5 +1,3 @@
-/*jshint loopfunc: true */
-
 // Model for this application
 var fullAttractionList = [
     {title: "University of Tokyo", location: {lat: 35.712678, lng: 139.761989}, type: ["school/college"]},
@@ -28,12 +26,9 @@ function closeNav() {
     document.getElementById("map-canvas").style.left = "0";
 }
 
-
-// use Google Map API
-var map;
-var infowindow;
-var markers = [];
-var apiKey = "AIzaSyCdiFxVS_WVLaYdnPtGhBWIeoeHLOOyT6s";
+var map,            // to hold a Map object 
+    infowindow,     // to hold a Infowindow object
+    markers = [];   // an array of markers on map
 
 function initMap() {
     // the center of the map: Tokyo, Japan
