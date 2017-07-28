@@ -97,10 +97,10 @@ function displayMarkers(markers) {
 function displayInfoWindow(marker, infowindow) {
     if (infowindow.marker != marker) {
         infowindow.marker = marker;
-        var contentString = '<h3>' + marker.title + '</h3>'+ '<hr>' + '<p>Link you may find useful</p>'+'<div id="wiki-link"><ul>';
+        var contentString = `<h3>${marker.title}</h3><hr><p>Link you may find useful</p><div id="wiki-link"><ul>`;
       
         // load Wikipedia Articles
-        var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + marker.getTitle() + '&format=json&callback=wikiCallback';
+        var wikiUrl = `https://en.wikipedia.org/w/api.php?action=opensearch&search=${marker.getTitle()}&format=json&callback=wikiCallback`;
 
         $.ajax({
             url : wikiUrl,
@@ -108,17 +108,17 @@ function displayInfoWindow(marker, infowindow) {
         }).done(function(response){
             // get the results from wikipedia
             var articleList = response[1];
-            // set the max number of wikipedia links to be 3
+            // set the max number of wikipedia links to 3
             var numArticle = articleList.length > 3? 3 : articleList.length;
             // go through the list and generate urls
             for (var i = 0; i < numArticle; i++){
                 articleStr = articleList[i];
-                var url = 'http://en.wikipedia.org/wiki/' + articleStr;   
+                var url = `http://en.wikipedia.org/wiki/${articleStr}`;   
                 // put the articles in an unordered list 
-                contentString += '<li><a href="' + url + '">' + articleStr + '</a></li>';
+                contentString += `<li><a href="${url}">${articleStr}</a></li>`;
             }
             // close up contentString, now ready to use
-            contentString += '</ul>' + '</div>';
+            contentString += '</ul></div>';
             // set the content and open the infowindow
             infowindow.setContent(contentString);
             infowindow.open(map, marker);
