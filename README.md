@@ -21,14 +21,14 @@ I am still learning, so the tools I used are basic (also effective) ones:
 
 ### How to run it?
 
-All you need is to do is:
+All you need to do is:
 
 1. Uncompress the zip file
 2. Locate the *index.html* file
 3. Right click and open it with your favorite browser.
    (Or you can just drag it to a running browser)
 
-
+Or, you can try the live demo. The link is provided above.
 
 
 ### Online Resources 
