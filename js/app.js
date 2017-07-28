@@ -199,8 +199,6 @@ var errorLoadingMap = function() {
 var generateFullList = function() {
     var list = [];
     for(var i = 0; i < fullAttractionList.length; i++) {
-        //var attraction = new Attraction(fullAttractionList[i]);
-        //attraction.qualified = true; 
         list.push(fullAttractionList[i]);
     }
     return list;
@@ -220,7 +218,6 @@ function refreshList(keyword) {
         for (var i = 0; i < fullAttractionList.length; i++) {
             // if the type of the attraction matches keyword
             if (fullAttractionList[i].type.includes(keyword)) {
-                // console.log(fullAttractionList[i]);
                 qualifiedList.push(fullAttractionList[i]);
             }
         }
