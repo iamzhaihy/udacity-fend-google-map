@@ -26,13 +26,16 @@ function closeNav() {
     document.getElementById("map-canvas").style.left = "0";
 }
 
-var map,            // to hold a Map object 
-    infowindow,     // to hold a Infowindow object
-    markers = [];   // an array of markers on map
+var map, // to hold a Map object 
+    infowindow, // to hold a Infowindow object
+    markers = []; // an array of markers on map
 
 function initMap() {
     // the center of the map: Tokyo, Japan
-    var mapCenter = {lat: 35.681788, lng: 139.766761};
+    var mapCenter = {
+        lat: 35.681788,
+        lng: 139.766761
+    };
 
     // create a new instance of Map class
     map = new google.maps.Map(document.getElementById('map'), {
@@ -47,7 +50,7 @@ function initMap() {
         // get the title & position
         var title = fullAttractionList[i].title;
         var location = fullAttractionList[i].location;
-        
+
         // create a marker for this attraction
         var marker = new google.maps.Marker({
             position: location,
@@ -60,7 +63,7 @@ function initMap() {
         markers.push(marker);
 
         // a 'click event' to open the infowindow
-        marker.addListener('click', function() {
+        marker.addListener('click', function () {
             // one marker animation a time
             for (var i = 0; i < markers.length; i++) {
                 markers[i].setAnimation(null);
@@ -68,7 +71,7 @@ function initMap() {
             // show users the marker clicked is active
             this.setAnimation(google.maps.Animation.BOUNCE);
             // display the detailed info about the place selected
-            displayInfoWindow(this, infowindow); 
+            displayInfoWindow(this, infowindow);
         });
     } // for loop
 
@@ -83,7 +86,7 @@ function displayMarkers(markers) {
         markers[i].setMap(map);
         bounds.extend(markers[i].position);
     } // for loop
-    
+
     map.fitBounds(bounds);
 } // displayMarkers()
 
@@ -93,22 +96,22 @@ function displayInfoWindow(marker, infowindow) {
     if (infowindow.marker != marker) {
         infowindow.marker = marker;
         var contentString = `<h3>${marker.title}</h3><hr><p>Link you may find useful</p><div id="wiki-link"><ul>`;
-      
+
         // load Wikipedia Articles
         var wikiUrl = `https://en.wikipedia.org/w/api.php?action=opensearch&search=${marker.getTitle()}&format=json&callback=wikiCallback`;
 
         $.ajax({
-            url : wikiUrl,
-            dataType : 'jsonp'
-        }).done(function(response){
+            url: wikiUrl,
+            dataType: 'jsonp'
+        }).done(function (response) {
             // get the results from wikipedia
             var articleList = response[1];
             // set the max number of wikipedia links to 3
-            var numArticle = articleList.length > 3? 3 : articleList.length;
+            var numArticle = articleList.length > 3 ? 3 : articleList.length;
             // go through the list and generate urls
-            for (var i = 0; i < numArticle; i++){
+            for (var i = 0; i < numArticle; i++) {
                 articleStr = articleList[i];
-                var url = `http://en.wikipedia.org/wiki/${articleStr}`;   
+                var url = `http://en.wikipedia.org/wiki/${articleStr}`;
                 // put the articles in an unordered list 
                 contentString += `<li><a href="${url}">${articleStr}</a></li>`;
             }
@@ -123,9 +126,9 @@ function displayInfoWindow(marker, infowindow) {
             infowindow.setContent("failed to get wikipedia resources");
             infowindow.open(map, marker);
         });
-       
+
         // clear the infowindow if it is closed
-        infowindow.addListener('closeclick',function(){
+        infowindow.addListener('closeclick', function () {
             infowindow.marker = null;
         });
     } // if statement
@@ -133,14 +136,14 @@ function displayInfoWindow(marker, infowindow) {
 
 
 // use KnockoutJS to manage the project
-var Attraction = function(data) {
+var Attraction = function (data) {
     this.title = ko.observable(data.title);
     this.location = ko.observable(data.location);
     this.type = ko.observableArray(data.type);
 }; // Attraction class
 
 
-var ViewModel = function() {  
+var ViewModel = function () {
     // inner this != outer this
     var self = this;
 
@@ -148,18 +151,18 @@ var ViewModel = function() {
     // consisting all the elements in the list of attractions
     var fullList = generateFullList();
     this.attractionList = ko.observableArray(fullList);
-    
+
     // options for drop down menu
     this.optionValues = [
         "all", "school/college", "observation-tower", "landmark",
         "dating", "shopping", "fun", "souvenir", "zoo", "park",
         "temple", "shrine", "garden", "museum"
-    ]; 
+    ];
 
     // default option is "all"
     this.selectedOptionValue = ko.observable("all");
-    
-    this.selectedOptionValue.subscribe(function() {
+
+    this.selectedOptionValue.subscribe(function () {
         // close opened infowindow
         infowindow.close();
 
@@ -174,31 +177,31 @@ var ViewModel = function() {
         showFilteredListing(self.selectedOptionValue(), self.attractionList());
     });
 
-    this.userClickItem = function(clickedItem) {
+    this.userClickItem = function (clickedItem) {
         // if clickedItem is a ko observable
-        if ((typeof clickedItem.title) == "function"){
-           showClickedItem(clickedItem.title());
-       }
+        if ((typeof clickedItem.title) == "function") {
+            showClickedItem(clickedItem.title());
+        }
 
-       // if clickedItem is a normal object
-       if ((typeof clickedItem.title) == "string") {
-           showClickedItem(clickedItem.title);
-       }
+        // if clickedItem is a normal object
+        if ((typeof clickedItem.title) == "string") {
+            showClickedItem(clickedItem.title);
+        }
     };
 
 }; // ViewModel class
 
 
 // error handing method
-var errorLoadingMap = function() {
+var errorLoadingMap = function () {
     alert("Failed to load the Map. Please try again later.");
 };
 
 
 // generate a full list
-var generateFullList = function() {
+var generateFullList = function () {
     var list = [];
-    for(var i = 0; i < fullAttractionList.length; i++) {
+    for (var i = 0; i < fullAttractionList.length; i++) {
         list.push(fullAttractionList[i]);
     }
     return list;
@@ -206,11 +209,11 @@ var generateFullList = function() {
 
 
 // use the keyword to find attractions that have the type users want
-function refreshList(keyword) {  
+function refreshList(keyword) {
     // if user choose all, return the full list
     if (keyword == "all") {
         var list = generateFullList();
-      	return list;
+        return list;
     }
 
     var qualifiedList = [];
@@ -221,7 +224,7 @@ function refreshList(keyword) {
                 qualifiedList.push(fullAttractionList[i]);
             }
         }
-    } 
+    }
 
     return qualifiedList;
 } // refreshList()
@@ -239,10 +242,10 @@ function showFilteredListing(keyword, qualifiedList) {
     if (keyword == "all") {
         // set all markers visible
         for (var k = 0; k < markers.length; k++) {
-            if (markers[k].getVisible() == false){
+            if (markers[k].getVisible() == false) {
                 markers[k].setVisible(true);
             }
-        } 
+        }
     } else {
         // if a keyword is specified, show only filtered
         for (var j = 0; j < markers.length; j++) {
@@ -266,7 +269,7 @@ function showClickedItem(title) {
             markers[i].setAnimation(google.maps.Animation.BOUNCE);
             displayInfoWindow(markers[i], infowindow);
         } else {
-             markers[i].setAnimation(null);
+            markers[i].setAnimation(null);
         }
     } // for loop
 } // showClickedItem()
