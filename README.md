@@ -21,7 +21,7 @@ I am still learning, so the tools I used are basic (also effective) ones:
 
 ### How to run it?
 
-All you need to do is:
+All you needto do is:
 
 1. Uncompress the zip file
 2. Locate the *index.html* file
@@ -47,4 +47,4 @@ I learned a lot from following places:
 ### Notice
 
 1. All the things you need is in the compressed file. If the file was damaged or corrupted, you can find a copy on my Github.
-2. I will add more features to this map after I learn more about using framework and APIs.
+2. I will add more features to this map after I learn more about using framework and APIs.˚

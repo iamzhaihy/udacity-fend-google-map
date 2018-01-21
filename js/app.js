@@ -16,8 +16,8 @@ var fullAttractionList = [
 
 // function to open the side nav bar
 function openNav() {
-    document.getElementById("side-nav").style.width = "340px";
-    document.getElementById("map-canvas").style.left = "340px";
+    document.getElementById("side-nav").style.width = "350px";
+    document.getElementById("map-canvas").style.left = "350px";
 }
 
 // function to close the side nav bar
@@ -65,9 +65,7 @@ function initMap() {
         // a 'click event' to open the infowindow
         marker.addListener('click', function () {
             // one marker animation a time
-            for (var i = 0; i < markers.length; i++) {
-                markers[i].setAnimation(null);
-            }
+            markers.forEach((m) => {m.setAnimation(null);});
             // show users the marker clicked is active
             this.setAnimation(google.maps.Animation.BOUNCE);
             // display the detailed info about the place selected
@@ -82,10 +80,11 @@ function initMap() {
 // display all markers
 function displayMarkers(markers) {
     var bounds = new google.maps.LatLngBounds();
-    for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(map);
-        bounds.extend(markers[i].position);
-    } // for loop
+
+    markers.forEach( (marker) => {
+        marker.setMap(map);
+        bounds.extend(marker.position);
+    });
 
     map.fitBounds(bounds);
 } // displayMarkers()
@@ -103,11 +102,12 @@ function displayInfoWindow(marker, infowindow) {
         $.ajax({
             url: wikiUrl,
             dataType: 'jsonp'
-        }).done(function (response) {
+        }).done( (response) => {
             // get the results from wikipedia
             var articleList = response[1];
             // set the max number of wikipedia links to 3
             var numArticle = articleList.length > 3 ? 3 : articleList.length;
+            
             // go through the list and generate urls
             for (var i = 0; i < numArticle; i++) {
                 articleStr = articleList[i];
@@ -115,12 +115,13 @@ function displayInfoWindow(marker, infowindow) {
                 // put the articles in an unordered list 
                 contentString += `<li><a href="${url}">${articleStr}</a></li>`;
             }
+
             // close up contentString, now ready to use
             contentString += '</ul></div>';
             // set the content and open the infowindow
             infowindow.setContent(contentString);
             infowindow.open(map, marker);
-        }).fail(function () {
+        }).fail( () => {
             // set the content and open the infowindow
             // tell the users that requesting failed
             infowindow.setContent("failed to get wikipedia resources");
@@ -128,7 +129,7 @@ function displayInfoWindow(marker, infowindow) {
         });
 
         // clear the infowindow if it is closed
-        infowindow.addListener('closeclick', function () {
+        infowindow.addListener('closeclick', () => {
             infowindow.marker = null;
         });
     } // if statement
@@ -136,14 +137,14 @@ function displayInfoWindow(marker, infowindow) {
 
 
 // use KnockoutJS to manage the project
-var Attraction = function (data) {
+var Attraction = (data) => {
     this.title = ko.observable(data.title);
     this.location = ko.observable(data.location);
     this.type = ko.observableArray(data.type);
 }; // Attraction class
 
 
-var ViewModel = function () {
+function ViewModel() {
     // inner this != outer this
     var self = this;
 
@@ -162,7 +163,7 @@ var ViewModel = function () {
     // default option is "all"
     this.selectedOptionValue = ko.observable("all");
 
-    this.selectedOptionValue.subscribe(function () {
+    this.selectedOptionValue.subscribe( () => {
         // close opened infowindow
         infowindow.close();
 
@@ -177,33 +178,33 @@ var ViewModel = function () {
         showFilteredListing(self.selectedOptionValue(), self.attractionList());
     });
 
-    this.userClickItem = function (clickedItem) {
+    this.userClickItem = (clickedItem) => {
         // if clickedItem is a ko observable
-        if ((typeof clickedItem.title) == "function") {
+        if ((typeof clickedItem.title) == "function")
             showClickedItem(clickedItem.title());
-        }
 
         // if clickedItem is a normal object
-        if ((typeof clickedItem.title) == "string") {
+        if ((typeof clickedItem.title) == "string")
             showClickedItem(clickedItem.title);
-        }
     };
 
 }; // ViewModel class
 
 
 // error handing method
-var errorLoadingMap = function () {
+var errorLoadingMap = () => {
     alert("Failed to load the Map. Please try again later.");
 };
 
 
 // generate a full list
-var generateFullList = function () {
+var generateFullList = () => {
     var list = [];
-    for (var i = 0; i < fullAttractionList.length; i++) {
-        list.push(fullAttractionList[i]);
-    }
+
+    fullAttractionList.forEach((attraction) => {
+        list.push(attraction);
+    });
+
     return list;
 }; // generateFullList()
 
@@ -214,17 +215,16 @@ function refreshList(keyword) {
     if (keyword == "all") {
         var list = generateFullList();
         return list;
-    }
+    } // if
 
     var qualifiedList = [];
     if (keyword != "all") {
-        for (var i = 0; i < fullAttractionList.length; i++) {
-            // if the type of the attraction matches keyword
-            if (fullAttractionList[i].type.includes(keyword)) {
-                qualifiedList.push(fullAttractionList[i]);
-            }
-        }
-    }
+        // filter the attractions
+        fullAttractionList.forEach((attraction) => {
+            if (attraction.type.includes(keyword))
+                qualifiedList.push(attraction);
+        });
+    } // if
 
     return qualifiedList;
 } // refreshList()
@@ -235,43 +235,66 @@ function showFilteredListing(keyword, qualifiedList) {
     var titles = [];
 
     // grab the titles from qualified list
-    for (var i = 0; i < qualifiedList.length; i++) {
-        titles.push(qualifiedList[i].title);
-    }
+    qualifiedList.forEach((element) => {
+        titles.push(element.title);
+    });
 
-    if (keyword == "all") {
-        // set all markers visible
-        for (var k = 0; k < markers.length; k++) {
-            if (markers[k].getVisible() == false) {
-                markers[k].setVisible(true);
-            }
-        }
+    if (keyword == "all") {        
+        // set all markers visible    
+        // for (var k = 0; k < markers.length; k++) {
+        //     if (markers[k].getVisible() == false)
+        //         markers[k].setVisible(true);
+        // }
+
+        markers.forEach((marker) => {
+            if (marker.getVisible() == false)
+                marker.setVisible(true);
+        });
     } else {
         // if a keyword is specified, show only filtered
-        for (var j = 0; j < markers.length; j++) {
+        // for (var j = 0; j < markers.length; j++) {
+        //     // if the title of the marker matches keyword
+        //     if (titles.includes(markers[j].title)) {
+        //         markers[j].setVisible(true);
+        //         markers[j].setAnimation(google.maps.Animation.DROP);
+        //     } else {
+        //         markers[j].setVisible(false);
+        //     }
+        // } // for loop
+
+        markers.forEach((marker) => {
             // if the title of the marker matches keyword
-            if (titles.includes(markers[j].title)) {
-                markers[j].setVisible(true);
-                markers[j].setAnimation(google.maps.Animation.DROP);
+            if (titles.includes(marker.title)) {
+                marker.setVisible(true);
+                marker.setAnimation(google.maps.Animation.DROP);
             } else {
-                markers[j].setVisible(false);
+                marker.setVisible(false);
             }
-        } // for loop
-    }
+        });
+    } // else
 } // showFilteredListing
 
 
 // invoked when user click an entry
 function showClickedItem(title) {
-    for (var i = 0; i < markers.length; i++) {
-        // one marker animation a time
-        if (markers[i].title == title) {
-            markers[i].setAnimation(google.maps.Animation.BOUNCE);
-            displayInfoWindow(markers[i], infowindow);
+    // for (var i = 0; i < markers.length; i++) {
+    //     // one marker animation a time
+    //     if (markers[i].title == title) {
+    //         markers[i].setAnimation(google.maps.Animation.BOUNCE);
+    //         displayInfoWindow(markers[i], infowindow);
+    //     } else {
+    //         markers[i].setAnimation(null);
+    //     }
+    // } // for loop
+
+    markers.forEach((marker) => {
+        if (marker.title == title) {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+            displayInfoWindow(marker, infowindow);
         } else {
-            markers[i].setAnimation(null);
+            marker.setAnimation(null);
         }
-    } // for loop
+    });
 } // showClickedItem()
 
 ko.applyBindings(new ViewModel());
