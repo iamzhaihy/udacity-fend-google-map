@@ -240,28 +240,11 @@ function showFilteredListing(keyword, qualifiedList) {
     });
 
     if (keyword == "all") {        
-        // set all markers visible    
-        // for (var k = 0; k < markers.length; k++) {
-        //     if (markers[k].getVisible() == false)
-        //         markers[k].setVisible(true);
-        // }
-
         markers.forEach((marker) => {
             if (marker.getVisible() == false)
                 marker.setVisible(true);
         });
     } else {
-        // if a keyword is specified, show only filtered
-        // for (var j = 0; j < markers.length; j++) {
-        //     // if the title of the marker matches keyword
-        //     if (titles.includes(markers[j].title)) {
-        //         markers[j].setVisible(true);
-        //         markers[j].setAnimation(google.maps.Animation.DROP);
-        //     } else {
-        //         markers[j].setVisible(false);
-        //     }
-        // } // for loop
-
         markers.forEach((marker) => {
             // if the title of the marker matches keyword
             if (titles.includes(marker.title)) {
@@ -277,16 +260,6 @@ function showFilteredListing(keyword, qualifiedList) {
 
 // invoked when user click an entry
 function showClickedItem(title) {
-    // for (var i = 0; i < markers.length; i++) {
-    //     // one marker animation a time
-    //     if (markers[i].title == title) {
-    //         markers[i].setAnimation(google.maps.Animation.BOUNCE);
-    //         displayInfoWindow(markers[i], infowindow);
-    //     } else {
-    //         markers[i].setAnimation(null);
-    //     }
-    // } // for loop
-
     markers.forEach((marker) => {
         if (marker.title == title) {
             marker.setAnimation(google.maps.Animation.BOUNCE);
